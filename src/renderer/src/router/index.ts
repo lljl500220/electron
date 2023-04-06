@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, Router, RouteRecordRaw} from 'vue-router'
+import {createRouter, createWebHashHistory, Router, RouteRecordRaw} from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -7,13 +7,18 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/index',
-    component: import('../views/index.vue'),
+    component: () => import('../views/index.vue'),
     name: 'index'
+  },
+  {
+    path: '/test',
+    component: () => import('../views/TestModel.vue'),
+    name: 'TestModel'
   }
 ]
 
 const router: Router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 })
 

@@ -1,17 +1,19 @@
 <template>
-  <div class="loading-text">
-    <span>请</span>
-    <span>稍</span>
-    <span>后</span>
-    <span>.</span>
-    <span>.</span>
-    <span>.</span>
+  <div class="loading-main">
+    <div class="loading-text">
+      <span>请</span>
+      <span>稍</span>
+      <span>后</span>
+      <span>.</span>
+      <span>.</span>
+      <span>.</span>
+    </div>
+    <div class="loading"></div>
   </div>
-  <div class="loading"></div>
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
+import { onMounted } from 'vue'
 
 onMounted(() => {
   document.querySelectorAll('span').forEach((span, index) => {
@@ -25,6 +27,12 @@ body html {
   text-align: center;
   margin: 0;
   overflow: hidden;
+}
+
+.loading-main{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
 }
 
 .loading {
@@ -45,16 +53,18 @@ body html {
   position: absolute;
   inset: 0;
   /* 默认角度是从上到下，90deg 逆时针旋转后变成从左到右渐变 */
-  background: linear-gradient(90deg,
-  var(--gradient-color-1),
-  var(--gradient-color-2),
-  var(--gradient-color-3),
-  var(--gradient-color-4),
-  var(--gradient-color-1),
-  var(--gradient-color-2),
-  var(--gradient-color-3),
-  var(--gradient-color-4),
-  var(--gradient-color-1));
+  background: linear-gradient(
+    90deg,
+    var(--gradient-color-1),
+    var(--gradient-color-2),
+    var(--gradient-color-3),
+    var(--gradient-color-4),
+    var(--gradient-color-1),
+    var(--gradient-color-2),
+    var(--gradient-color-3),
+    var(--gradient-color-4),
+    var(--gradient-color-1)
+  );
   background-size: 200%;
   border-radius: 12px;
   animation: flow 3s linear infinite;
@@ -65,16 +75,18 @@ body html {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg,
-  var(--gradient-color-1),
-  var(--gradient-color-2),
-  var(--gradient-color-3),
-  var(--gradient-color-4),
-  var(--gradient-color-1),
-  var(--gradient-color-2),
-  var(--gradient-color-3),
-  var(--gradient-color-4),
-  var(--gradient-color-1));
+  background: linear-gradient(
+    90deg,
+    var(--gradient-color-1),
+    var(--gradient-color-2),
+    var(--gradient-color-3),
+    var(--gradient-color-4),
+    var(--gradient-color-1),
+    var(--gradient-color-2),
+    var(--gradient-color-3),
+    var(--gradient-color-4),
+    var(--gradient-color-1)
+  );
   background-size: 200%;
   filter: blur(10px);
   border-radius: 12px;
