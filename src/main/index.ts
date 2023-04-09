@@ -23,7 +23,7 @@ function createWindow(): void {
     }
   })
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url).then(() => {
     })
@@ -32,18 +32,19 @@ function createWindow(): void {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']).then(() => {
     })
-    console.log(process.env['ELECTRON_RENDERER_URL'])
-    console.log('mainWindow set url')
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html')).then(() => {
     })
   }
   ipcMain.handle('ping', () => {
-    load.hide()
-    load.close()
+    if (load) {
+      load.hide()
+      load.close()
+    }
     Menu.setApplicationMenu(null)
     mainWindow.maximize()
     mainWindow.show()
+    return mainWindow.getContentSize()
   })
 }
 
