@@ -12,6 +12,8 @@ function createWindow(): void {
     height: 670,
     show: false,
     // frame: false,
+    // resizable: false,
+    // frame: false,
     // titleBarStyle: 'hidden',
     // titleBarOverlay: true,
     // transparent: true,
@@ -23,7 +25,7 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url).then(() => {
     })
