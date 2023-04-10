@@ -22,12 +22,14 @@ const props = defineProps<Props>()
 
 <style scoped lang="less">
 :deep(.el-col){
-  margin-top: 5px;
+  margin-top: 1rem;
   text-align: center;
   .el-statistic__head{
+    font-size: 1rem;
     color: #fff;
   }
   .el-statistic__content{
+    font-size: 1rem;
     color: #fff;
   }
 }

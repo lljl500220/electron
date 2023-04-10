@@ -25,6 +25,12 @@ import qn from "../json/qn.json"
 const map: any = ref(null)
 
 const option = reactive({
+  grid:{
+    top:0,
+    bottom:0,
+    left:0,
+    right:0
+  },
   series: [
     {
       name: "数据名称",
@@ -37,9 +43,11 @@ const option = reactive({
           }
         },
         color: '#fff',
-        fontSize:'0.8rem',
+        fontSize:'0.6rem',
         fontFamily: 'FangSong'
       },
+      layoutCenter: ["50%", "50%"], //位置
+      // layoutSize: "100%",
       select:{
         itemStyle:{
           areaColor: '#3262de',
@@ -79,8 +87,9 @@ const changeMap = (name:string,index:number) =>{
   chart.setOption(option)
 }
 
+defineExpose({changeMap})
+
 onMounted(() => {
-  changeMap('贵州',0)
 })
 </script>
 

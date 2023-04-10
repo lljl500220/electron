@@ -18,7 +18,7 @@
                        :class="{active:isActive === index+5}">{{ item }}
             </el-button>
           </div>
-          <gui-zhou-map></gui-zhou-map>
+          <gui-zhou-map ref="map"></gui-zhou-map>
         </div>
         <div class="ent-content content-border">
           <div class="title-img">
@@ -47,6 +47,7 @@ import EntStatistic from "../components/EntStatistic.vue";
 
 //主内容框
 const main: any = ref(null)
+const map: any = ref(null)
 //初始化rem大小
 let rem = ref('15px')
 const ping = async () => {
@@ -58,6 +59,7 @@ const ping = async () => {
   document.getElementsByTagName('html')[0].style['width'] = a[0] + 'px'
   document.getElementsByTagName('body')[0].style['height'] = a[1] + 'px'
   document.getElementsByTagName('body')[0].style['width'] = a[0] + 'px'
+  map.value.changeMap('贵州',0)
 }
 
 //两个展示信息的内容
@@ -80,6 +82,7 @@ const mapBtnRight = ['毕节市', '铜仁市', '黔南州', '黔西南', '黔东
 //按钮改变
 const mapChange = (name:string,index:number) => {
   isActive.value = index
+  map.value.changeMap(name,index)
 }
 
 setTimeout(() => {
@@ -170,20 +173,20 @@ onMounted(() => {
         }
 
         .left {
-          left: 0.5rem;
+          left: 1rem;
         }
 
         .right {
-          right: 0.5rem;
+          right: 1rem;
         }
       }
 
       .ent-content {
-        height: calc(100% - 40rem);
+        height: calc(100% - 42rem);
       }
 
       .table-content {
-        height: 15rem
+        height: 17rem
       }
     }
 
