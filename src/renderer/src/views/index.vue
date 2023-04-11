@@ -30,11 +30,33 @@
           <div class="title-img">
             <span>实时订单</span>
           </div>
+          <business-table></business-table>
         </div>
       </div>
       <div class="center">
+        <div class="line-chart content-border">
+          <div class="title-img">
+            <span>加油站经营情况趋势图(月)</span>
+          </div>
+          <line-chart ref="lineChart"></line-chart>
+        </div>
+        <div class="rose-chart content-border">
+          <div class="title-img">
+            <span>各地加油站加油金额占比(上月)</span>
+          </div>
+          <rose-chart ref="roseChart"></rose-chart>
+        </div>
+        <div class="bar-chart content-border">
+          <div class="title-img">
+            <span>各油品交易情况(上月)</span>
+          </div>
+          <bar-chart ref="barChart"></bar-chart>
+        </div>
       </div>
-      <div class="right">
+      <div class="right content-border">
+        <div class="title-img">
+          <span>预警模块</span>
+        </div>
       </div>
     </main>
   </div>
@@ -42,15 +64,60 @@
 
 <script setup lang="ts">
 import GuiZhouMap from "../components/GuiZhouMap.vue";
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import EntStatistic from "../components/EntStatistic.vue";
+import BusinessTable from "../components/BusinessTable.vue";
+import LineChart from "../components/LineChart.vue";
+import RoseChart from "../components/RoseChart.vue";
+import BarChart from "../components/BarChart.vue";
 
 //主内容框
 const main: any = ref(null)
 const map: any = ref(null)
+const lineChart: any = ref(null)
+const roseChart: any = ref(null)
+const barChart: any = ref(null)
+
+const lineData = reactive({
+  xData:["1","2","3","4","5","6","7"],
+  data:[
+    [1,2,3,4,5,6,7],
+    [2,3,4,5,6,7,8]
+  ],
+})
+
+const roseData = reactive({
+  data: [
+    {value:101,name:'贵阳市',select:true},
+    {value:102,name:'六盘水'},
+    {value:103,name:'遵义市'},
+    {value:104,name:'安顺市'},
+    {value:105,name:'毕节市'},
+    {value:106,name:'铜仁市'},
+    {value:107,name:'黔南州'},
+    {value:108,name:'黔西南'},
+    {value:109,name:'黔东南'},
+  ],
+})
+
+const barData = reactive({
+  data:[100,233,133,234,125,145],
+  formatter:(value)=>{
+    return value + "万元"
+  }
+})
+
+const resetChart = (name,index) => {
+  map.value.changeMap(name,index)
+  lineChart.value.initChart(lineData.data,lineData.xData)
+  roseChart.value.initChart(roseData.data,roseData)
+  barChart.value.initChart(barData.data,barData.formatter)
+}
+
 //初始化rem大小
 let rem = ref('15px')
 const ping = async () => {
+  //@ts-ignore
   let a: number[] = await window.api.ping()
   rem.value = a[0] / 100 + 'px'
   localStorage.setItem('rem', (a[0] / 100).toString())
@@ -59,8 +126,10 @@ const ping = async () => {
   document.getElementsByTagName('html')[0].style['width'] = a[0] + 'px'
   document.getElementsByTagName('body')[0].style['height'] = a[1] + 'px'
   document.getElementsByTagName('body')[0].style['width'] = a[0] + 'px'
-  map.value.changeMap('贵州',0)
+  resetChart('贵州',0)
 }
+
+//线形图
 
 //两个展示信息的内容
 const mapStatistic = ref([
@@ -83,6 +152,7 @@ const mapBtnRight = ['毕节市', '铜仁市', '黔南州', '黔西南', '黔东
 const mapChange = (name:string,index:number) => {
   isActive.value = index
   map.value.changeMap(name,index)
+  resetChart(name,index)
 }
 
 setTimeout(() => {
@@ -182,21 +252,31 @@ onMounted(() => {
       }
 
       .ent-content {
-        height: calc(100% - 42rem);
+        height: calc(100% - 41rem);
       }
 
       .table-content {
-        height: 17rem
+        height: 16rem
       }
     }
 
     .center {
       width: 29rem;
       margin-left: 1rem;
+      .line-chart{
+        height:16rem
+      }
+      .rose-chart{
+        height:calc(100% - 34rem)
+      }
+      .bar-chart {
+        height: 16rem;
+      }
     }
 
     .right {
       width: 29rem;
+      height: calc(100% - 1rem);
       margin-left: 1rem;
     }
   }
@@ -218,7 +298,6 @@ onMounted(() => {
     height: 2rem;
     width: 100%;
     text-align: center;
-    background-size: auto;
     background: url("../assets/title-bg1.png") center no-repeat;
 
     span {

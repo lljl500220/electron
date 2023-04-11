@@ -53,14 +53,14 @@ const option = reactive({
           areaColor: '#3262de',
         },
         label:{
-          color: '#000',
+          color: '#fff',
           fontSize: '1rem',
           fontWeight: 'bold'
         }
       },
       itemStyle: {
         normal: {
-          areaColor: 'rgba(45,197,203,0.5)', //rgba设置透明度0
+          areaColor: 'rgba(45,197,203,0.8)', //rgba设置透明度0
           borderColor: '#fff',
           borderWidth: 1,
           shadowColor: 'rgba(0,54,255, 1)',
@@ -77,7 +77,7 @@ const option = reactive({
 
 })
 
-const mapList = [guizhou,gy,lps,zy,as,bj,tr,qxn,qn,qdn]
+const mapList = [guizhou,gy,lps,zy,as,bj,tr,qn,qxn,qdn]
 //改变地图
 const changeMap = (name:string,index:number) =>{
   option.series[0].map = name
@@ -117,6 +117,9 @@ onMounted(() => {
   0% {
     transform: rotate(0deg) scale(1.4, 1.4);
   }
+  50% {
+    transform: rotate(-180deg) scale(1.6, 1.6);
+  }
   100% {
     transform: rotate(-360deg) scale(1.4, 1.4);
   }
@@ -125,6 +128,9 @@ onMounted(() => {
 @keyframes lbxAnimation {
   0% {
     transform: rotate(0deg) scale(1.1, 1.1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.3, 1.3);
   }
   100% {
     transform: rotate(360deg) scale(1.1, 1.1);
@@ -146,10 +152,23 @@ onMounted(() => {
   z-index: 2;
 }
 
+@keyframes mapAnimation {
+  0% {
+    transform: scale(1.2, 1.2);
+  }
+  70%{
+    transform: scale(1.4, 1.4);
+  }
+  100% {
+    transform: scale(1.2, 1.2);
+  }
+}
+
 .map {
   position: absolute;
   left: 12.5rem;
   top: 5rem;
   z-index: 10;
+  transform: scale(1.4, 1.4);
 }
 </style>
