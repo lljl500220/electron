@@ -70,6 +70,8 @@ import BusinessTable from "../components/BusinessTable.vue";
 import LineChart from "../components/LineChart.vue";
 import RoseChart from "../components/RoseChart.vue";
 import BarChart from "../components/BarChart.vue";
+import { useRemStore} from "../store";
+import {storeToRefs} from "pinia";
 
 //主内容框
 const main: any = ref(null)
@@ -77,6 +79,10 @@ const map: any = ref(null)
 const lineChart: any = ref(null)
 const roseChart: any = ref(null)
 const barChart: any = ref(null)
+
+const remStore = useRemStore()
+
+const {remPx} = storeToRefs(remStore)
 
 const lineData = reactive({
   xData:["1","2","3","4","5","6","7"],
@@ -119,6 +125,7 @@ let rem = ref('15px')
 const ping = async () => {
   //@ts-ignore
   let a: number[] = await window.api.ping()
+  remStore.remPx = a[0] / 100
   rem.value = a[0] / 100 + 'px'
   localStorage.setItem('rem', (a[0] / 100).toString())
   document.getElementsByTagName('html')[0].style['font-size'] = rem.value
