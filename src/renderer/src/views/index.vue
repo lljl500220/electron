@@ -64,7 +64,7 @@
           <stack-bar-chart ref="stackBar"></stack-bar-chart>
         </div>
         <div class="statistic-box">
-          <!--          <missing-rate :data="missRate" title="title"></missing-rate>-->
+                    <missing-rate v-for="(item,index) in missRate" :data="item.data" :title="item.title"></missing-rate>
           <span>各地州数据缺失率</span>
         </div>
       </div>
