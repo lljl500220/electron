@@ -64,7 +64,9 @@
           <stack-bar-chart ref="stackBar"></stack-bar-chart>
         </div>
         <div class="statistic-box">
-                    <missing-rate v-for="(item,index) in missRate" :data="item.data" :title="item.title"></missing-rate>
+          <miss-statistic v-for="(item,index) in missRate" :title="item.title" :rate="item.rate"
+                        :key="index">
+          </miss-statistic>
           <span>各地州数据缺失率</span>
         </div>
       </div>
@@ -82,7 +84,7 @@ import RoseChart from "../components/RoseChart.vue";
 import BarChart from "../components/BarChart.vue";
 import StackBarChart from "../components/StackBarChart.vue";
 import PieChart from "../components/PieChart.vue";
-import MissingRate from "../components/MissingRate.vue";
+import MissStatistic from "../components/MissStatistic.vue";
 
 //主内容框
 const main: any = ref(null)
@@ -94,10 +96,10 @@ const stackBar: any = ref(null)
 const pieChart: any = ref(null)
 
 const lineData = reactive({
-  xData: ['贵州省', '贵阳市', '六盘水', '遵义市', '安顺市','毕节市', '铜仁市', '黔南州', '黔西南', '黔东南'],
+  xData: ['贵州省', '贵阳市', '六盘水', '遵义市', '安顺市', '毕节市', '铜仁市', '黔南州', '黔西南', '黔东南'],
   data: [
-    [1, 2, 3, 4, 5, 6, 7,3,1,4],
-    [2, 3, 4, 5, 6, 7, 8,4,5,1,]
+    [1, 2, 3, 4, 5, 6, 7, 3, 1, 4],
+    [2, 3, 4, 5, 6, 7, 8, 4, 5, 1,]
   ],
 })
 
@@ -158,15 +160,15 @@ const pieData = reactive({
   ]
 })
 const missRate = ref([
-  {title: '贵阳市', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '六盘水', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '遵义市', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '安顺市', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '毕节市', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '铜仁市', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '黔南州', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '黔西南', data: [0.5, 0.4, 0.3, 0.2]},
-  {title: '黔东南', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '贵阳市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '六盘水', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '遵义市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '安顺市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '毕节市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '铜仁市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '黔南州', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '黔西南', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '黔东南', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
 ])
 
 const resetChart = (name, index) => {

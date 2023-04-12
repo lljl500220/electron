@@ -17,15 +17,6 @@ interface Props {
 const props = defineProps<Props>()
 
 const option = {
-  title:{
-    text:'',
-    // bottom: 0,
-    left: 'center',
-    textStyle:{
-      color: '#fff',
-      fontSize: '1rem',
-    }
-  },
   series: [{
     type: 'liquidFill',
     data: [0.1, 0.5, 0.4, 0.3],
@@ -52,7 +43,7 @@ watch(props, (newValue, oldValue) => {
 
 const initChart = (data:any,title) =>{
   missingDom.value && echarts.dispose(missingDom.value)
-  option.title.text = title
+  // option.title.text = title
   option.series[0].data = data
   const chart = echarts.init(missingDom.value)
   chart.setOption(option)
