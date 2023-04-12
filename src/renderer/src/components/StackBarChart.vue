@@ -35,7 +35,7 @@ const option = reactive({
   xAxis: {
     type: 'category',
     boundaryGap: true,
-    data: ['0#','89#','92#','95#','98#','M100'],
+    data: ['贵州省', '贵阳市', '六盘水', '遵义市', '安顺市','毕节市', '铜仁市', '黔南州', '黔西南', '黔东南'],
     axisLabel: {
       color: 'rgb(55, 162, 255)',
     },
@@ -84,6 +84,8 @@ const option = reactive({
 
 const initChart = (data: number[][]) => {
   barChart.value && echarts.dispose(barChart.value)
+  option.series[0].data = data[0]
+  option.series[1].data = data[1]
   const chart = echarts.init(barChart.value)
   chart.setOption(option, false)
 }

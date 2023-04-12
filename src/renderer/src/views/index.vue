@@ -64,7 +64,8 @@
           <stack-bar-chart ref="stackBar"></stack-bar-chart>
         </div>
         <div class="statistic-box">
-          <missing-rate></missing-rate>
+          <!--          <missing-rate :data="missRate" title="title"></missing-rate>-->
+          <span>各地州数据缺失率</span>
         </div>
       </div>
     </main>
@@ -93,59 +94,86 @@ const stackBar: any = ref(null)
 const pieChart: any = ref(null)
 
 const lineData = reactive({
-  xData:["1","2","3","4","5","6","7"],
-  data:[
-    [1,2,3,4,5,6,7],
-    [2,3,4,5,6,7,8]
+  xData: ['贵州省', '贵阳市', '六盘水', '遵义市', '安顺市','毕节市', '铜仁市', '黔南州', '黔西南', '黔东南'],
+  data: [
+    [1, 2, 3, 4, 5, 6, 7,3,1,4],
+    [2, 3, 4, 5, 6, 7, 8,4,5,1,]
   ],
 })
 
 const roseData = reactive({
   data: [
-    {value:101,name:'贵阳市',select:true},
-    {value:102,name:'六盘水'},
-    {value:103,name:'遵义市'},
-    {value:104,name:'安顺市'},
-    {value:105,name:'毕节市'},
-    {value:106,name:'铜仁市'},
-    {value:107,name:'黔南州'},
-    {value:108,name:'黔西南'},
-    {value:109,name:'黔东南'},
+    {value: 101, name: '贵阳市', select: true},
+    {value: 102, name: '六盘水'},
+    {value: 103, name: '遵义市'},
+    {value: 104, name: '安顺市'},
+    {value: 105, name: '毕节市'},
+    {value: 106, name: '铜仁市'},
+    {value: 107, name: '黔南州'},
+    {value: 108, name: '黔西南'},
+    {value: 109, name: '黔东南'},
   ],
 })
 
 const barData = reactive({
-  data:[100,233,133,234,125,145],
-  formatter:(value)=>{
+  data: [100, 233, 133, 234, 125, 145],
+  formatter: (value) => {
     return value + "万元"
   }
 })
 
 const stackBarData = reactive({
-  data:[
-    { value: 1048, name: 'Search Engine' },
-    { value: 735, name: 'Direct' },
-    { value: 580, name: 'Email' },
-    { value: 484, name: 'Union Ads' },
-    { value: 300, name: 'Video Ads' }
-  ]
+  data: [[{value: 101},
+    {value: 102},
+    {value: 103},
+    {value: 104},
+    {value: 105},
+    {value: 106},
+    {value: 107},
+    {value: 108},
+    {value: 109}], [
+    {value: 101},
+    {value: 102},
+    {value: 103},
+    {value: 104},
+    {value: 105},
+    {value: 106},
+    {value: 107},
+    {value: 108},
+    {value: 109},
+  ]]
 })
 
 const pieData = reactive({
-  data:[
-    { value: 1048, name: 'Search Engine' },
-    { value: 735, name: 'Direct' },
-    { value: 580, name: 'Email' },
-    { value: 484, name: 'Union Ads' },
-    { value: 300, name: 'Video Ads' }
+  data: [
+    {value: 101, name: '贵阳市'},
+    {value: 102, name: '六盘水'},
+    {value: 103, name: '遵义市'},
+    {value: 104, name: '安顺市'},
+    {value: 105, name: '毕节市'},
+    {value: 106, name: '铜仁市'},
+    {value: 107, name: '黔南州'},
+    {value: 108, name: '黔西南'},
+    {value: 109, name: '黔东南'},
   ]
 })
+const missRate = ref([
+  {title: '贵阳市', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '六盘水', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '遵义市', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '安顺市', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '毕节市', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '铜仁市', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '黔南州', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '黔西南', data: [0.5, 0.4, 0.3, 0.2]},
+  {title: '黔东南', data: [0.5, 0.4, 0.3, 0.2]},
+])
 
-const resetChart = (name,index) => {
-  map.value.changeMap(name,index)
-  lineChart.value.initChart(lineData.data,lineData.xData)
+const resetChart = (name, index) => {
+  map.value.changeMap(name, index)
+  lineChart.value.initChart(lineData.data, lineData.xData)
   roseChart.value.initChart(roseData.data)
-  barChart.value.initChart(barData.data,barData.formatter)
+  barChart.value.initChart(barData.data, barData.formatter)
   stackBar.value.initChart(stackBarData.data)
   pieChart.value.initChart(pieData.data)
   entStatistic.value[0].value = index
@@ -163,7 +191,7 @@ const ping = async () => {
   document.getElementsByTagName('html')[0].style['width'] = a[0] + 'px'
   document.getElementsByTagName('body')[0].style['height'] = a[1] + 'px'
   document.getElementsByTagName('body')[0].style['width'] = a[0] + 'px'
-  resetChart('贵州',0)
+  resetChart('贵州', 0)
 }
 
 //线形图
@@ -180,28 +208,16 @@ const entStatistic = ref([
   {title: '税控系统安装总数', value: 2000, span: 8}
 ])
 
-const missRate = ref([
-  {title: '贵阳市', value: 1000, rate: '8%'},
-  {title: '六盘水', value: 1000, rate: '8%'},
-  {title: '遵义市', value: 1000, rate: '8%'},
-  {title: '安顺市', value: 1000, rate: '8%'},
-  {title: '毕节市', value: 1000, rate: '8%'},
-  {title: '铜仁市', value: 1000, rate: '8%'},
-  {title: '黔南州', value: 1000, rate: '8%'},
-  {title: '黔西南', value: 1000, rate: '8%'},
-  {title: '黔东南', value: 1000, rate: '8%'},
-])
-
 //地图按钮
 const isActive = ref(0)
 const mapBtnLeft = ['贵州省', '贵阳市', '六盘水', '遵义市', '安顺市']
 const mapBtnRight = ['毕节市', '铜仁市', '黔南州', '黔西南', '黔东南']
 
 //按钮改变
-const mapChange = (name:string,index:number) => {
+const mapChange = (name: string, index: number) => {
   isActive.value = index
-  map.value.changeMap(name,index)
-  resetChart(name,index)
+  map.value.changeMap(name, index)
+  resetChart(name, index)
 }
 
 setTimeout(() => {
@@ -312,12 +328,15 @@ onMounted(() => {
     .center {
       width: 29rem;
       margin-left: 1rem;
-      .line-chart{
-        height:16rem
+
+      .line-chart {
+        height: 16rem
       }
-      .rose-chart{
-        height:calc(100% - 34rem)
+
+      .rose-chart {
+        height: calc(100% - 34rem)
       }
+
       .bar-chart {
         height: 16rem;
       }
@@ -327,17 +346,29 @@ onMounted(() => {
       width: 29rem;
       height: calc(100% - 1rem);
       margin-left: 1rem;
-      .pie-chart{
+
+      .pie-chart {
         width: 100%;
         height: calc((100% - 18rem) / 2);
       }
-      .stack-bar{
+
+      .stack-bar {
         width: 100%;
         height: calc((100% - 18rem) / 2);
       }
-      .statistic-box{
+
+      .statistic-box {
+        text-align: center;
         width: 100%;
         height: 16rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        span {
+          text-align: center;
+          margin: auto;
+          font-size: 1.3rem;
+        }
       }
     }
   }
