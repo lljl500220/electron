@@ -57,6 +57,15 @@
         <div class="title-img">
           <span>预警模块</span>
         </div>
+        <div class="pie-chart">
+          <pie-chart ref="pieChart"></pie-chart>
+        </div>
+        <div class="stack-bar">
+          <stack-bar-chart ref="stackBar"></stack-bar-chart>
+        </div>
+        <div class="statistic-box">
+          <missing-rate></missing-rate>
+        </div>
       </div>
     </main>
   </div>
@@ -70,6 +79,9 @@ import BusinessTable from "../components/BusinessTable.vue";
 import LineChart from "../components/LineChart.vue";
 import RoseChart from "../components/RoseChart.vue";
 import BarChart from "../components/BarChart.vue";
+import StackBarChart from "../components/StackBarChart.vue";
+import PieChart from "../components/PieChart.vue";
+import MissingRate from "../components/MissingRate.vue";
 
 //主内容框
 const main: any = ref(null)
@@ -77,6 +89,8 @@ const map: any = ref(null)
 const lineChart: any = ref(null)
 const roseChart: any = ref(null)
 const barChart: any = ref(null)
+const stackBar: any = ref(null)
+const pieChart: any = ref(null)
 
 const lineData = reactive({
   xData:["1","2","3","4","5","6","7"],
@@ -107,11 +121,34 @@ const barData = reactive({
   }
 })
 
+const stackBarData = reactive({
+  data:[
+    { value: 1048, name: 'Search Engine' },
+    { value: 735, name: 'Direct' },
+    { value: 580, name: 'Email' },
+    { value: 484, name: 'Union Ads' },
+    { value: 300, name: 'Video Ads' }
+  ]
+})
+
+const pieData = reactive({
+  data:[
+    { value: 1048, name: 'Search Engine' },
+    { value: 735, name: 'Direct' },
+    { value: 580, name: 'Email' },
+    { value: 484, name: 'Union Ads' },
+    { value: 300, name: 'Video Ads' }
+  ]
+})
+
 const resetChart = (name,index) => {
   map.value.changeMap(name,index)
   lineChart.value.initChart(lineData.data,lineData.xData)
-  roseChart.value.initChart(roseData.data,roseData)
+  roseChart.value.initChart(roseData.data)
   barChart.value.initChart(barData.data,barData.formatter)
+  stackBar.value.initChart(stackBarData.data)
+  pieChart.value.initChart(pieData.data)
+  entStatistic.value[0].value = index
 }
 
 //初始化rem大小
@@ -141,6 +178,18 @@ const entStatistic = ref([
   {title: '企业入驻总数', value: 1000, span: 8},
   {title: '企业建档总数', value: 2000, span: 8},
   {title: '税控系统安装总数', value: 2000, span: 8}
+])
+
+const missRate = ref([
+  {title: '贵阳市', value: 1000, rate: '8%'},
+  {title: '六盘水', value: 1000, rate: '8%'},
+  {title: '遵义市', value: 1000, rate: '8%'},
+  {title: '安顺市', value: 1000, rate: '8%'},
+  {title: '毕节市', value: 1000, rate: '8%'},
+  {title: '铜仁市', value: 1000, rate: '8%'},
+  {title: '黔南州', value: 1000, rate: '8%'},
+  {title: '黔西南', value: 1000, rate: '8%'},
+  {title: '黔东南', value: 1000, rate: '8%'},
 ])
 
 //地图按钮
@@ -278,6 +327,18 @@ onMounted(() => {
       width: 29rem;
       height: calc(100% - 1rem);
       margin-left: 1rem;
+      .pie-chart{
+        width: 100%;
+        height: calc((100% - 18rem) / 2);
+      }
+      .stack-bar{
+        width: 100%;
+        height: calc((100% - 18rem) / 2);
+      }
+      .statistic-box{
+        width: 100%;
+        height: 16rem;
+      }
     }
   }
 

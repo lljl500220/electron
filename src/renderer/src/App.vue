@@ -11,4 +11,5 @@ const locale = zhCn
 
 <style lang="less">
 @import './assets/css/styles.less';
+@import './assets/css/liuxing.less';
 </style>
