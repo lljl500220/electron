@@ -38,8 +38,15 @@ const option = reactive({
       map: "",
       label: {
         show: true, formatter: (param: any) => {
-          if (param.name.length > 5) {
-            return param.name.slice(0, 4) + "\n" + param.name.slice(5)
+          switch (param.name) {
+            case '黔西南布依族苗族自治州':
+              return '黔西南'
+            case '黔南布依族苗族自治州':
+              return '黔南州'
+            case '黔东南苗族侗族自治州':
+              return '黔东南'
+            case '六盘水市':
+              return '六盘水'
           }
         },
         color: '#fff',

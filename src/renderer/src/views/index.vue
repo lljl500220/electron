@@ -60,7 +60,11 @@
         <div class="pie-chart">
           <pie-chart ref="pieChart"></pie-chart>
         </div>
-        <div class="stack-bar">
+        <div class="stack-bar box">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
           <stack-bar-chart ref="stackBar"></stack-bar-chart>
         </div>
         <div class="statistic-box">
@@ -163,14 +167,14 @@ const pieData = reactive({
 })
 const missRate = ref([
   {title: '贵阳市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '六盘水', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '遵义市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '安顺市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '毕节市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '铜仁市', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '黔南州', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '黔西南', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
-  {title: '黔东南', data: [0.5, 0.4, 0.3, 0.2],rate:'10%'},
+  {title: '六盘水', data: [0.5, 0.4, 0.3, 0.2],rate:'20%'},
+  {title: '遵义市', data: [0.5, 0.4, 0.3, 0.2],rate:'30%'},
+  {title: '安顺市', data: [0.5, 0.4, 0.3, 0.2],rate:'100%'},
+  {title: '毕节市', data: [0.5, 0.4, 0.3, 0.2],rate:'20%'},
+  {title: '铜仁市', data: [0.5, 0.4, 0.3, 0.2],rate:'30%'},
+  {title: '黔南州', data: [0.5, 0.4, 0.3, 0.2],rate:'40%'},
+  {title: '黔西南', data: [0.5, 0.4, 0.3, 0.2],rate:'50%'},
+  {title: '黔东南', data: [0.5, 0.4, 0.3, 0.2],rate:'60%'},
 ])
 
 const resetChart = (name, index) => {
@@ -358,7 +362,96 @@ onMounted(() => {
 
       .stack-bar {
         width: 100%;
-        height: calc((100% - 18rem) / 2);
+        height: calc(((100% - 18rem) / 2) - 3px);
+        margin-top: 2px;
+      }
+
+      .box{
+        position: relative;
+        overflow: hidden;
+      }
+
+      .box span {
+        position: absolute;
+        display: block;
+      }
+      /* 从左到右 */
+      .box span:nth-child(1) {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #5b66e3);
+        animation: animate1 3s linear infinite;
+      }
+      @keyframes animate1 {
+        0% {
+          left: -100%;
+        }
+        50%,
+        100% {
+          left: 100%;
+        }
+      }
+
+      /* 从上到下 */
+      .box span:nth-child(2) {
+        top: -100%;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, #5b66e3);
+        animation: animate2 3s linear infinite;
+        animation-delay: 0.75s;
+      }
+      @keyframes animate2 {
+        0% {
+          top: -100%;
+        }
+        50%,
+        100% {
+          top: 100%;
+        }
+      }
+
+      /* 从右到左 */
+      .box span:nth-child(3) {
+        right: -100%;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(270deg, transparent, #5b66e3);
+        animation: animate3 3s linear infinite;
+        animation-delay: 1.5s;
+      }
+      @keyframes animate3 {
+        0% {
+          right: -100%;
+        }
+        50%,
+        100% {
+          right: 100%;
+        }
+      }
+
+      /* 从下到上 */
+      .box span:nth-child(4) {
+        bottom: -100%;
+        left: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(360deg, transparent, #5b66e3);
+        animation: animate4 3s linear infinite;
+        animation-delay: 2.25s;
+      }
+      @keyframes animate4 {
+        0% {
+          bottom: -100%;
+        }
+        50%,
+        100% {
+          bottom: 100%;
+        }
       }
 
       .statistic-box {

@@ -1,7 +1,7 @@
 <template>
   <div class="statistic-card card">
-    <el-statistic :title="props.title" :value="props.rate"></el-statistic>
-    <div class="statistic-footer">
+    <el-statistic style="position:relative;z-index: 2;" :title="props.title" :value="props.rate"></el-statistic>
+    <div style="position:relative;z-index: 2;" class="statistic-footer">
       <div class="footer-item">
         <span>缺失率</span>
         <span class="green">
@@ -11,6 +11,9 @@
             </span>
       </div>
     </div>
+    <div class="bg-1" :style="{top: `calc(${top})`}"></div>
+    <div class="bg-2" :style="{top: `calc(${top})`}"></div>
+    <div class="bg-3" :style="{top: `calc(${top})`}"></div>
   </div>
 </template>
 
@@ -21,12 +24,16 @@ import {
   CaretTop,
   Warning,
 } from '@element-plus/icons-vue'
+import {ref} from "vue";
 interface Props {
   title:string,
   rate:string
 }
 
 const props = defineProps<Props>()
+
+const top =ref('-' + props.rate + " + -90%")
+console.log(top.value)
 </script>
 
 <style scoped lang="less">
@@ -35,6 +42,7 @@ const props = defineProps<Props>()
   position: relative;
   width: calc(20% - 2px);
   //border: #b3e19d 1px solid;
+  background-color: rgba(55, 162, 255);
   margin: 1px;
   border-radius: 4px;
   padding-top: 10px;
@@ -44,6 +52,35 @@ const props = defineProps<Props>()
   inset 0 -3px 4px 3px rgb(55, 162, 255);
   transition: transform 300ms linear;
   transform: scale(0.8,0.8);
+  .bg-1{
+    position: absolute;
+    top: -110%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    border-radius: 45%;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.3);
+    //transform-origin: 10px;
+    animation: missingRate 8s linear infinite;
+  }
+  .bg-2{
+    .bg-1();
+    //background-color: rgba(24,154,234,0.1);;
+    animation-delay: 1000ms;
+  }
+  .bg-3{
+    .bg-1();
+    animation-delay: 2000ms;
+  }
+}
+@keyframes missingRate {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(-360deg);
+  }
 }
 .card:before{
   content: '';
