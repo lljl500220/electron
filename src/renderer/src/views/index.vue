@@ -67,6 +67,7 @@
           <miss-statistic v-for="(item,index) in missRate" :title="item.title" :rate="item.rate"
                         :key="index">
           </miss-statistic>
+<!--          <missing-rate v-for="(item,index) in missRate"></missing-rate>-->
           <span>各地州数据缺失率</span>
         </div>
       </div>
@@ -85,6 +86,7 @@ import BarChart from "../components/BarChart.vue";
 import StackBarChart from "../components/StackBarChart.vue";
 import PieChart from "../components/PieChart.vue";
 import MissStatistic from "../components/MissStatistic.vue";
+import MissingRate from "../components/MissingRate.vue";
 
 //主内容框
 const main: any = ref(null)

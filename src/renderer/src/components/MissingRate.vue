@@ -9,12 +9,6 @@ import 'echarts-liquidfill'
 
 const missingDom:any = ref(null)
 
-interface Props {
-  data:any[],
-  title:string
-}
-
-const props = defineProps<Props>()
 
 const option = {
   series: [{
@@ -36,21 +30,16 @@ const option = {
 
   }]
 };
-
-watch(props, (newValue, oldValue) => {
-  initChart(newValue.data,newValue.title)
-})
-
-const initChart = (data:any,title) =>{
+const initChart = () =>{
   missingDom.value && echarts.dispose(missingDom.value)
   // option.title.text = title
-  option.series[0].data = data
+  // option.series[0].data = data
   const chart = echarts.init(missingDom.value)
   chart.setOption(option)
 }
 
 onMounted(() => {
-  initChart(props.data,props.title)
+  initChart()
 })
 
 </script>
