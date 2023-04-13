@@ -1,10 +1,7 @@
-# electron-app
+# 贵州省石化监管平台客户端
 
-An Electron application with Vue and TypeScript
-
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+来源于我接手的一个项目[全省成品油一体化监管服务平台](17.175.182.152:40004)
+由于原开发人员写的是依托答辩，所以产生了想重构的想法，然后将就学习electron
 
 ## Project Setup
 
